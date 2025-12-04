@@ -1,0 +1,44 @@
+# -------------------------------
+# BANK LOAN MANAGEMENT SYSTEM
+# -------------------------------
+
+customers = [ ]
+
+def add_customer():
+    print("\n--- Add New Loan Customer ---")
+    name = input("Enter Customer Name: ")
+    loan_type = input("Enter Loan Type (Education/Gold/Home/Personal): ").capitalize()
+    loan_amount = float(input("Enter Loan Amount: "))
+    repaid_amount = float(input("Enter Repaid Amount: "))
+
+    customer = {
+        "name": name,
+        "loan_type": loan_type,
+        "loan_amount": loan_amount,
+        "repaid_amount": repaid_amount
+    }
+
+    customers.append(customer)
+    print(" Customer added successfully!\n")
+
+
+def dashboard():
+    if not customers:
+        print("\n No customer data available!\n")
+        return
+
+    total_people = len(customers)
+    total_loan = 0
+    total_repaid = 0
+    total_pending = 0
+
+    category_total = {}
+
+    for c in customers:
+        total_loan += c["loan_amount"]
+        total_repaid += c["repaid_amount"]
+        pending = c["loan_amount"] - c["repaid_amount"]
+        total_pending += pending
+
+        if c["loan_type"] in category_total:
+            category_total[c["loan_type"]] += c["loan_amount"]
